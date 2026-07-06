@@ -5632,6 +5632,7 @@ add('act0.hint.purge',
 '它把「狀態卡」塞進你手牌占位、不能打 — 打「標準單位轉換 UOM Conversion」一次清光,每清一張還給你格擋。',
 'It stuffs unplayable status cards into your hand — play Standard UOM Conversion to purge them all, gaining Block per card cleared.');
 add('act0.brief.banner', '前導解說 · 第 {n} 課', 'Briefing · Lesson {n}');
+add('act0.lessonpanel', '本課重點(戰鬥中隨時看)', 'Lesson key points (visible during battle)');
 add('act0.brief.ruleLabel', '這關怎麼玩', 'How this lesson works');
 add('act0.brief.erpLabel', '對應的 Oracle 概念', 'Real Oracle concept');
 add('act0.brief.start', '我懂了,開始 ▸', 'Got it — Start ▸');
@@ -5640,14 +5641,14 @@ add('act0.brief.l1.rule',
 '怪頭頂的數字 = 它這回合打你大腦多少。打「格擋」卡擋住,不擋就直接扣 HP;格擋每回合結束歸零,所以要看意圖決定何時擋。',
 'The number above the monster = its brain damage this turn. Play a Block card to stop it; unblocked = HP loss. Block resets each turn end, so read the intent to time it.');
 add('act0.brief.l1.erp',
-'大腦軸 = 你當下的「專注力」,用完即逝、不累積。對應 ERP 的即時操作專注 — 這一筆做對才算數,不會自動延續到下一筆。',
-'The brain axis = your momentary "focus" — spent and gone, not cumulative. It mirrors real-time operational focus: get this transaction right now; it does not carry over.');
+'每筆交易都要在當下通過合規檢核(validation)才算成立 — 檢核是逐筆、即時的,這一筆過不代表下一筆自動過。而且系統會事先把即將觸發的檢核/例外顯示出來,讓你能預判因應。',
+'Every transaction must pass compliance validation at the moment it is entered — checks are per-transaction and immediate; one passing does not make the next pass. The system also surfaces upcoming checks/exceptions in advance so you can anticipate them.');
 add('act0.brief.l2.rule',
 '這隻怪削的是「資產軸 ATR」,不是大腦軸 — 格擋擋不到它!打「入庫 Deliver」補 On-Hand 撐高 ATR;ATR 不夠就溢出、直接穿透扣 HP。',
 'This monster erodes the Asset axis (ATR), not the brain axis — Block does NOT stop it! Play Deliver to raise On-Hand and ATR; if ATR runs short it overflows and pierces your HP.');
 add('act0.brief.l2.erp',
-'ATR(Available To Reserve 可預留量)= On-Hand 現有量 − Reserved 已預留量。它是帳上持久的資產數字,跟即時專注力是兩條不同的軸。',
-'ATR (Available To Reserve) = On-Hand − Reserved. It is a persistent on-book asset figure — a separate axis from momentary focus.');
+'ATR(Available To Reserve 可預留量)= On-Hand 現有量 − Reserved 已預留量。它是帳上持久累積的資產存量,衡量「還能再預留多少」,是庫存可用性判斷的核心數字。',
+'ATR (Available To Reserve) = On-Hand − Reserved. A persistent, accumulated on-book asset figure that measures "how much more can still be reserved" — the core number for inventory availability.');
 add('act0.brief.l3.rule',
 '單據要照順序:先打「收料 Receipt」→ 才能打「入庫 Deliver」。順序對了傷害才生效,亂序會被擋下、無效。入庫是這關的主輸出。',
 'Documents follow a sequence: play Receipt first → then Deliver. Right order deals damage; wrong order is rejected and wasted. Deliver is this lesson\'s main output.');
@@ -12087,7 +12088,7 @@ hud.innerHTML =
 '</div>' : '') +
 '<div class="ot-hud__group ot-hud__act"><span class="ot-hud__label">' + t('ui.hud.act') + ' ' + this.act + '</span>' +
 actPips + '</div>' +
-((['BATTLE', 'EXAM', 'MOCK_EXAM', 'PATH_CHALLENGE', 'GAMEOVER'].indexOf(this.screen) < 0)
+((['EXAM', 'MOCK_EXAM', 'DAILY_REVIEW'].indexOf(this.screen) < 0)
 ? '<button class="ot-hud__menu" id="hud-menu">☰</button>' : '') +
 '<button class="ot-hud__lang" id="lang-toggle">' + (s.lang === 'zh' ? '中/EN' : 'EN/中') + '</button>';
 var self = this;
@@ -12105,18 +12106,27 @@ var self = this, en = (this.state && this.state.lang) === 'en';
 var old = document.querySelector('body > .ot-hudmenu');
 if (old) { try { old.remove(); } catch (e) {} return; }   // 再點=關
 var m = el('div', 'ot-hudmenu');
+var inRun = (this.screen === 'BATTLE');
 var items = [
-{ ico: '📚', zh: '學習中心', en: 'Study Hub', go: function () { self.goto('HUB'); } },
-{ ico: '📖', zh: '本塔圖鑑', en: 'This tower Codex', go: function () { self._codexReturn = self.screen; self.goto('CODEX'); } },
-{ ico: '🔭', zh: '全塔圖鑑總覽', en: 'All-tower Codex', go: function () { try { window.open('codex_gallery.html', '_blank'); } catch (e) {} } },
-{ ico: '⚙️', zh: '設定', en: 'Settings', go: function () { self.goto('SETTINGS'); } }
+{ ico: '📚', zh: '學習中心', en: 'Study Hub', nav: true, go: function () { self.goto('HUB'); } },
+{ ico: '📖', zh: '本塔圖鑑', en: 'This tower Codex', nav: true, go: function () { self._codexReturn = self.screen; self.goto('CODEX'); } },
+{ ico: '🔭', zh: '全塔圖鑑總覽', en: 'All-tower Codex', nav: false, go: function () { try { window.open('codex_gallery.html', '_blank'); } catch (e) {} } },
+{ ico: '⚙️', zh: '設定', en: 'Settings', nav: true, go: function () { self.goto('SETTINGS'); } }
 ];
 if (typeof window !== 'undefined' && window.OT_MODULE) {
-items.push({ ico: '⬅', zh: '選擇其他塔', en: 'Choose another tower', go: function () { try { window.location.href = 'index.html'; } catch (e) {} } });
+items.push({ ico: '⬅', zh: '選擇其他塔', en: 'Choose another tower', nav: true, go: function () { try { window.location.href = 'index.html'; } catch (e) {} } });
 }
 items.forEach(function (it) {
 var b = el('button', 'ot-hudmenu__item', it.ico + ' ' + (en ? it.en : it.zh));
-b.onclick = function (e) { if (e && e.stopPropagation) e.stopPropagation(); try { m.remove(); } catch (er) {} it.go(); };
+b.onclick = function (e) {
+if (e && e.stopPropagation) e.stopPropagation();
+try { m.remove(); } catch (er) {}
+if (inRun && it.nav) {
+var ok = (typeof confirm === 'function') ? confirm(en ? 'Leaving will abandon this battle. Continue?' : '離開會結束本場戰鬥,確定?') : true;
+if (!ok) return;
+}
+it.go();
+};
 m.appendChild(b);
 });
 m.onclick = function (e) { if (e && e.stopPropagation) e.stopPropagation(); };
@@ -13611,6 +13621,16 @@ GameDirector.prototype._renderRouteTracker = function () {
 var box = this._battleEl && this._battleEl.querySelector('.ot-route-tracker');
 if (!box) return;
 clear(box);
+if (this._act0 && this._act0.active) {
+var m0 = (this.battle && this.battle.monsters && this.battle.monsters[0]);
+var mi0 = m0 ? monsterInfo(m0.id) : null;
+if (mi0) {
+box.style.display = '';
+box.innerHTML = '<div class="ot-route__flow">📖 ' + t('act0.lessonpanel') + '</div>' +
+minfoRuleHTML(mi0, this.state ? this.state.lang : 'zh');
+} else { box.style.display = 'none'; }
+return;
+}
 if (!OT.routes || !this._routeProg) { box.style.display = 'none'; return; }
 var self = this;
 var lang = this.state ? this.state.lang : 'zh';
@@ -15705,32 +15725,40 @@ act0_dummy_brain: {
 nameKey: 'act0.mon.dummy.name', src: 'scm_lp · 教學',
 whatZh: '教學假人(大腦攻擊):固定每回合打你 6 點「大腦傷害」,代表系統的合規/檢核壓力。',
 whatEn: 'Tutorial dummy (brain attack): hits you for a fixed 6 "brain damage" each turn — it stands for the system\'s compliance / validation pressure.',
-ruleZh: '大腦軸要用 block(藍色格擋)擋。block 每回合結束歸零、不累積 — 這回合的威脅這回合擋。',
-ruleEn: 'The brain axis is blocked with Block (blue). Block resets to zero each turn and does not accumulate — block this turn\'s threat this turn.',
+ruleZh: '大腦攻擊用「格擋」卡擋;格擋每回合結束歸零、不累積,這回合的威脅這回合擋。',
+ruleEn: 'Block the brain attack with a Block card; Block resets to zero each turn and does not stack — handle the threat within the same turn.',
+fusionZh: '對應每筆交易當下要通過合規檢核(validation):檢核逐筆、即時,這一筆過不代表下一筆自動過。',
+fusionEn: 'Mirrors per-transaction compliance validation: checks are immediate and per-transaction; one passing does not make the next pass.',
 extendZh: '先學「分軸防禦」:不是所有攻擊都用同一種資源擋。看懂這隻打的是哪一軸,才知道該補 block 還是補資產。',
 extendEn: 'First learn "defend by axis": not every attack is blocked by the same resource. Read which axis is hitting you, then decide whether to add Block or to add assets.' },
 act0_dummy_asset: {
 nameKey: 'act0.mon.asset.name', src: 'scm_lp · 教學',
 whatZh: '教學假人(資產侵蝕):每回合削你 7 點 ATR(可預留量),代表雜項發料這類「直接吃可用量」的事件。',
 whatEn: 'Tutorial dummy (asset erosion): drains 7 ATR (Available-to-Reserve) per turn — it stands for "directly eats availability" events like a misc issue.',
-ruleZh: '資產軸用 On-Hand / ATR 當海綿吸收,溢出的部分才穿透扣 HP。block 擋不住資產侵蝕 — 要靠入庫補資產。',
-ruleEn: 'The asset axis absorbs via On-Hand / ATR; only the overflow pierces your HP. Block cannot stop asset erosion — replenish via Deliver.',
+ruleZh: '資產侵蝕用 On-Hand/ATR 當海綿吸收,溢出才穿透扣 HP;格擋擋不住,要打「入庫」補資產。',
+ruleEn: 'Absorb asset erosion with On-Hand/ATR; only overflow pierces HP. Block will not stop it — play Deliver to replenish.',
+fusionZh: '對應 ATR(可預留量)= On-Hand − Reserved,是帳上持久累積的資產存量,衡量還能再預留多少。',
+fusionEn: 'Mirrors ATR (Available To Reserve) = On-Hand − Reserved: a persistent on-book asset figure measuring how much can still be reserved.',
 extendZh: '資產軸是持久的(不像 block 回合歸零),但「不夠就穿」。延伸:面對持續削資產的威脅,要先把資產墊高、留出緩衝,而不是每回合硬擋。',
 extendEn: 'The asset axis is persistent (unlike Block, which resets), but "if it runs short, it pierces." Extension: against sustained asset drain, build a buffer up front rather than hard-blocking every turn.' },
 act0_dummy_seq: {
 nameKey: 'act0.mon.seq.name', src: 'scm_lp · 教學',
 whatZh: '教學假人(前置鏈):血量較高,逼你走「收料 → 入庫」單據序,用 Deliver 的傷害才打得完。',
 whatEn: 'Tutorial dummy (prerequisite chain): higher HP, forcing you through the "Receipt → Deliver" document order — only Deliver\'s damage finishes it.',
-ruleZh: '單據必須照序:沒先「收料 Receipt」就不能「入庫 Deliver」。亂序出牌會被擋下。',
-ruleEn: 'Documents must follow order: no Deliver before a Receipt. Playing out of order is rejected.',
+ruleZh: '照順序出牌:先出「收料」才能出「入庫」;亂序出牌會被擋下、無效。',
+ruleEn: 'Play in order: Receipt before Deliver; out-of-order plays are rejected.',
+fusionZh: '對應 Oracle 單據前置相依:沒收料就不能入庫、沒採購單就不能收料,前置鏈是不可繞過的硬約束。',
+fusionEn: 'Mirrors Oracle document prerequisites: no Deliver without a Receipt, no Receipt without a PO — the prerequisite chain is a hard constraint.',
 extendZh: '前置相依是 ERP 的硬約束,不只在收料 — 出貨前要揀貨、開票前要出貨。卡住時先回頭問:上一張單據過了沒?',
 extendEn: 'Prerequisite chains are a hard ERP constraint, not only at receiving — picking before shipping, shipping before billing. When stuck, ask first: did the upstream document post?' },
 act0_dummy_uom: {
 nameKey: 'act0.mon.uom.name', src: 'scm_lp · 教學',
 whatZh: '教學假人(單位污染):每隔一回合塞 1 張「未知單位/小數尾差」污染卡到手牌,代表 UOM 沒設換算率。',
 whatEn: 'Tutorial dummy (UOM pollution): every other turn injects an "unknown unit / rounding error" pollution card — it stands for a missing UOM conversion.',
-ruleZh: '污染卡在手會讓實體防禦 block 減半,而且自己不會消失 — 要用「標準單位轉換」淨化卡才清得掉。',
-ruleEn: 'A pollution card in hand halves your physical Block and never leaves on its own — only a "Standard UOM Conversion" card purges it.',
+ruleZh: '污染卡在手會讓格擋減半、又不會自己消失;打「標準單位轉換」淨化卡一次清光,每清一張還你格擋。',
+ruleEn: 'A pollution card halves your Block and never leaves on its own; play Standard UOM Conversion to purge all at once, gaining Block per card cleared.',
+fusionZh: '對應 UOM 沒設換算率造成的資料污染:單位沒對齊,整批交易會卡在未知單位/進位誤差,要先做標準單位轉換清乾淨。',
+fusionEn: 'Mirrors data pollution from a missing UOM conversion: unaligned units choke transactions on unknown-unit/rounding errors — run a standard UOM conversion first.',
 extendZh: '有些威脅是「狀態污染」型:不直接扣血,但卡死你的資源。延伸:遇到只進不出的污染,牌組裡一定要常備對應的淨化手段,否則愈積愈鎖。',
 extendEn: 'Some threats are "status pollution": no direct HP loss, but they clog your resources. Extension: against one-way pollution, always keep a matching purge in your deck, or it accumulates and locks you up.' }
 };
@@ -15750,7 +15778,7 @@ extendZh: m.extendZh, extendEn: m.extendEn
 }
 var a = ACT0_MONSTER_INFO[id];
 if (a) return { id: id, nameKey: a.nameKey, src: a.src,
-whatZh: a.whatZh, whatEn: a.whatEn, ruleZh: a.ruleZh, ruleEn: a.ruleEn,
+whatZh: a.whatZh, whatEn: a.whatEn, ruleZh: a.ruleZh, ruleEn: a.ruleEn, fusionZh: a.fusionZh, fusionEn: a.fusionEn,
 extendZh: a.extendZh, extendEn: a.extendEn };
 return null;
 }
