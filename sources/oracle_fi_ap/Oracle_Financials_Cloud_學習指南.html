@@ -242,6 +242,9 @@ p.para{font-size:14.5px;line-height:1.7;color:var(--mid);margin-bottom:12px}
     <span class="en-only">9 · Intercompany & Reporting</span>
     <span class="prog" id="prog-m9">0%</span>
   </div>
+  <div class="nav-section zh-only">工具</div><div class="nav-section en-only">Tools</div>
+  <div class="nav-item" onclick="showPage('map')"><span class="icon">🗺️</span><span class="zh-only">整合地圖</span><span class="en-only">Integration Map</span></div>
+  <div class="nav-item" onclick="showPage('gloss')"><span class="icon">📖</span><span class="zh-only">術語速查</span><span class="en-only">Glossary</span></div>
 </nav>
 <main id="main">
 <div class="page active" id="page-home">
@@ -249,8 +252,96 @@ p.para{font-size:14.5px;line-height:1.7;color:var(--mid);margin-bottom:12px}
     <h1><span class="zh-only">Oracle Financials Cloud 完整學習指南</span><span class="en-only">Oracle Financials Cloud Complete Learning Guide</span></h1>
     <p class="sub zh-only">從共通企業結構到應付、總帳的完整實作。涵蓋 Payables、Expenses、General Ledger、財務報表。適合初學者、顧問及企業 Key User。</p>
     <p class="sub en-only">A systematic guide covering Oracle Fusion Financials — Payables, Expenses, and General Ledger — from shared foundations to hands-on close.</p>
-    <div class="meta"><span class="tag">10 <span class="zh-only">個模組</span><span class="en-only">Modules</span></span><span class="tag zh-only">雙語中英</span><span class="tag en-only">Bilingual</span><span class="tag zh-only">應付 · 總帳</span><span class="tag en-only">AP · GL</span></div>
+    <div class="meta"><span class="tag">10 <span class="zh-only">個模組</span><span class="en-only">Modules</span></span><span class="tag">164 <span class="zh-only">關鍵術語</span><span class="en-only">Key Terms</span></span><span class="tag zh-only">雙語中英</span><span class="tag en-only">Bilingual</span><span class="tag zh-only">應付 · 總帳</span><span class="tag en-only">AP · GL</span></div>
   </div>
+  <h2 class="sec-title zh-only">什麼是 Oracle Financials Cloud？</h2><h2 class="sec-title en-only">What is Oracle Financials Cloud?</h2>
+  <div class="cards">
+    <div class="card" style="border-left:4px solid var(--blue)"><div class="card-icon">💠</div><h3 class="zh-only">端對端財務平台</h3><h3 class="en-only">End-to-End Finance Platform</h3><p class="zh-only">Oracle Financials Cloud 是雲端 SaaS 財務系統，涵蓋應付、費用、總帳、財務報表，把每一筆交易從子帳一路帶到財務報表。</p><p class="en-only">A cloud SaaS finance suite covering Payables, Expenses, General Ledger and reporting — carrying every transaction from subledger all the way to the financial statements.</p></div>
+    <div class="card" style="border-left:4px solid var(--green)"><div class="card-icon">⚙️</div><h3 class="zh-only">兩條核心會計主線</h3><h3 class="en-only">Two Core Accounting Flows</h3><p class="zh-only"><strong>Procure-to-Pay（AP 段）</strong>：發票→比對→付款→關帳。<br><strong>Record-to-Report（R2R）</strong>：子帳分錄→傳票過帳→期末調整→財報。</p><p class="en-only"><strong>Procure-to-Pay (AP side)</strong>: invoice → match → pay → close.<br><strong>Record-to-Report (R2R)</strong>: subledger entries → posting → period adjustments → statements.</p></div>
+    <div class="card" style="border-left:4px solid var(--red)"><div class="card-icon">🧮</div><h3 class="zh-only">SLA 貫穿子帳到總帳</h3><h3 class="en-only">SLA Bridges Subledger to GL</h3><p class="zh-only">Subledger Accounting (SLA) 是共用引擎：AP、費用等子帳事件依規則產生分錄，統一轉入總帳，確保子帳與總帳恆等。</p><p class="en-only">Subledger Accounting (SLA) is the shared engine: AP and Expenses events generate journals by rules and transfer to GL, keeping subledgers and GL always in balance.</p></div>
+  </div>
+  <h2 class="sec-title zh-only">系統架構全覽</h2><h2 class="sec-title en-only">System Architecture Overview</h2>
+  <div class="section"><div class="section-body" style="padding:24px">
+    <div style="text-align:center;font-family:monospace;font-size:13.5px;line-height:2;background:#FAFBFC;padding:20px;border-radius:8px;border:1px solid var(--border);overflow-x:auto">
+<pre style="text-align:left;margin:0 auto;display:inline-block">
+┌────────────────────────────────────────────────────────┐
+│                Oracle Financials Cloud                 │
+├───────────────┬───────────────┬────────────────────────┤
+│   應付 AP     │  費用 Expenses │      總帳 GL           │
+│ Invoice→Pay   │ Report→Reimb   │  Journal→Post→Report   │
+├───────────────┴───────────────┴────────────────────────┤
+│          子帳會計 Subledger Accounting (SLA)            │
+├────────────────────────────────────────────────────────┤
+│  共通基礎：企業結構 · 分類帳 · 科目表 · FSM · BU        │
+└────────────────────────────────────────────────────────┘
+</pre>
+    </div>
+    <div class="callout info" style="margin-top:16px"><span class="ci">💡</span><div><span class="zh-only">所有子帳與總帳共享同一套<strong>企業結構與科目表</strong>，因此<strong>模組 0 的基礎必須最先建置</strong>，SLA 才能把 AP／費用事件正確落到總帳。</span><span class="en-only">All subledgers and GL share one <strong>enterprise structure and chart of accounts</strong>, so <strong>Module 0 foundation must be built first</strong> before SLA can post AP/Expenses events into GL.</span></div></div>
+  </div></div>
+  <h2 class="sec-title zh-only">推薦學習路徑</h2><h2 class="sec-title en-only">Recommended Learning Path</h2>
+  <div class="path-steps">
+    <div class="path-step clickable" onclick="showPage('m0')">
+      <div class="ps-num">01</div>
+      <div class="ps-title zh-only">共通基礎</div><div class="ps-title en-only">Foundation</div>
+      <div class="ps-sub zh-only">企業結構、分類帳、科目表、SLA——所有 Financials 模組的地基</div><div class="ps-sub en-only">Enterprise structure, ledgers, COA, SLA — the shared foundation</div>
+      <div class="ps-time zh-only">建議時間：3–5 天</div><div class="ps-time en-only">Suggested: 3–5 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m1')">
+      <div class="ps-num">02</div>
+      <div class="ps-title zh-only">應付基礎與供應商</div><div class="ps-title en-only">AP Basics & Suppliers</div>
+      <div class="ps-sub zh-only">供應商主檔、發票型別、應付術語</div><div class="ps-sub en-only">Supplier master, invoice types, AP terminology</div>
+      <div class="ps-time zh-only">建議時間：3–4 天</div><div class="ps-time en-only">Suggested: 3–4 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m2')">
+      <div class="ps-num">03</div>
+      <div class="ps-title zh-only">發票處理</div><div class="ps-title en-only">Invoice Processing</div>
+      <div class="ps-sub zh-only">驗證、核准、保留、三方比對、容差、分期</div><div class="ps-sub en-only">Validation, approval, holds, matching, tolerances, installments</div>
+      <div class="ps-time zh-only">建議時間：5–7 天</div><div class="ps-time en-only">Suggested: 5–7 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m3')">
+      <div class="ps-num">04</div>
+      <div class="ps-title zh-only">付款</div><div class="ps-title en-only">Payments</div>
+      <div class="ps-sub zh-only">付款流程、付款批次、預付沖銷、退款</div><div class="ps-sub en-only">Payment process, batches, prepayment, refunds</div>
+      <div class="ps-time zh-only">建議時間：4–5 天</div><div class="ps-time en-only">Suggested: 4–5 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m4')">
+      <div class="ps-num">05</div>
+      <div class="ps-title zh-only">費用報支</div><div class="ps-title en-only">Expenses</div>
+      <div class="ps-sub zh-only">費用報支、預借現金、公司卡、稽核</div><div class="ps-sub en-only">Expense reports, cash advance, corporate card, audit</div>
+      <div class="ps-time zh-only">建議時間：3–4 天</div><div class="ps-time en-only">Suggested: 3–4 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m5')">
+      <div class="ps-num">06</div>
+      <div class="ps-title zh-only">應付關帳與會計</div><div class="ps-title en-only">AP Accounting & Close</div>
+      <div class="ps-sub zh-only">建立會計、SLA、期間關帳、應付選項、自動抵銷</div><div class="ps-sub en-only">Create accounting, SLA, period close, options, offsets</div>
+      <div class="ps-time zh-only">建議時間：4–5 天</div><div class="ps-time en-only">Suggested: 4–5 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m6')">
+      <div class="ps-num">07</div>
+      <div class="ps-title zh-only">總帳基礎與科目表</div><div class="ps-title en-only">GL Ledgers & COA</div>
+      <div class="ps-sub zh-only">分類帳 4C、科目表、交叉驗證、段值安全</div><div class="ps-sub en-only">Ledger 4C, COA, cross-validation, segment security</div>
+      <div class="ps-time zh-only">建議時間：5–7 天</div><div class="ps-time en-only">Suggested: 5–7 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m7')">
+      <div class="ps-num">08</div>
+      <div class="ps-title zh-only">傳票與過帳</div><div class="ps-title en-only">Journals & Posting</div>
+      <div class="ps-sub zh-only">傳票三層、過帳、沖銷、暫記帳戶</div><div class="ps-sub en-only">Journals, posting, reversal, suspense</div>
+      <div class="ps-time zh-only">建議時間：4–5 天</div><div class="ps-time en-only">Suggested: 4–5 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m8')">
+      <div class="ps-num">09</div>
+      <div class="ps-title zh-only">期間關帳與外幣</div><div class="ps-title en-only">Period Close & Currency</div>
+      <div class="ps-sub zh-only">期間關帳、換算、重估、分攤</div><div class="ps-sub en-only">Period close, translation, revaluation, allocation</div>
+      <div class="ps-time zh-only">建議時間：4–6 天</div><div class="ps-time en-only">Suggested: 4–6 days</div>
+    </div>
+    <div class="path-step clickable" onclick="showPage('m9')">
+      <div class="ps-num">10</div>
+      <div class="ps-title zh-only">公司間與財報</div><div class="ps-title en-only">Intercompany & Reporting</div>
+      <div class="ps-sub zh-only">公司間交易、財務報表、Smart View、財報中心</div><div class="ps-sub en-only">Intercompany, financial reporting, Smart View</div>
+      <div class="ps-time zh-only">建議時間：3–4 天</div><div class="ps-time en-only">Suggested: 3–4 days</div>
+    </div>
+  </div>
+  <div class="callout tip"><span class="ci">✅</span><div><strong class="zh-only">學習建議</strong><strong class="en-only">Learning Tips</strong><br><span class="zh-only">每個模組頁提供「學習模式」（詳解＋範例）與「參考模式」（快速查閱），切換上方按鈕即可。完成的設定步驟可勾選，進度自動儲存。</span><span class="en-only">Each module page offers a "Learn Mode" (details + examples) and "Reference Mode" (quick lookup); toggle with the button above. Check off completed setup steps — progress auto-saves.</span></div></div>
   <h2 class="sec-title zh-only">模組總覽</h2><h2 class="sec-title en-only">Module Overview</h2>
   <div class="cards">
     <div class="card module-card clickable" onclick="showPage('m0')">
@@ -3639,6 +3730,220 @@ p.para{font-size:14.5px;line-height:1.7;color:var(--mid);margin-bottom:12px}
   </tbody></table>
 
 </div></div>
+
+<div class="page" id="page-map">
+  <div class="hero"><h1>🗺️ <span class="zh-only">模組整合地圖</span><span class="en-only">Integration Map</span></h1><p class="sub zh-only">了解應付、費用、總帳之間的資料流與觸發關係——財務整合的關鍵視角。</p><p class="sub en-only">How Payables, Expenses, and GL flow into each other — the key perspective on financial integration.</p></div>
+  <h2 class="sec-title zh-only">財務資料流架構圖</h2><h2 class="sec-title en-only">Financial Data Flow</h2>
+  <div class="section"><div class="section-body"><div style="font-family:monospace;background:#FAFBFC;padding:24px;border-radius:8px;border:1px solid var(--border);overflow-x:auto"><pre style="font-size:13px;line-height:2;color:var(--dark);margin:0">
+   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+   │  採購/收料   │   │  費用報支     │   │  員工/供應商 │
+   │ PO / Receipt │   │  Expenses    │   │  Master      │
+   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+          │ 三方比對          │ 償付程序          │
+          ▼                   ▼                   │
+   ┌──────────────────────────────────┐          │
+   │        應付 Payables (AP)         │◄─────────┘
+   │  發票 → 驗證 → 核准 → 付款        │
+   └───────────────┬──────────────────┘
+                   │ 建立會計 (SLA)
+                   ▼
+   ┌──────────────────────────────────┐
+   │       總帳 General Ledger (GL)    │
+   │  傳票 → 過帳 → 期末 → 財報        │
+   └───────────────┬──────────────────┘
+                   │ 財務報表 / Smart View
+                   ▼
+            ┌──────────────┐
+            │  財報中心 FRC │
+            └──────────────┘
+</pre></div></div></div>
+  <h2 class="sec-title zh-only">關鍵整合點速查</h2><h2 class="sec-title en-only">Key Integration Points</h2>
+  <div class="section"><div class="section-body"><table class="tbl"><thead><tr><th><span class="zh-only">資料來源</span><span class="en-only">Source</span></th><th><span class="zh-only">觸發事件</span><span class="en-only">Trigger</span></th><th><span class="zh-only">接收</span><span class="en-only">Receiver</span></th><th><span class="zh-only">效果</span><span class="en-only">Effect</span></th></tr></thead><tbody>
+    <tr><td><span class="zh-only">採購</span><span class="en-only">Procurement</span></td><td><span class="zh-only">PO 收料</span><span class="en-only">PO Receipt</span></td><td><span class="zh-only">應付</span><span class="en-only">AP</span></td><td><span class="zh-only">產生收料應計，發票三方比對基準</span><span class="en-only">Accrual + basis for 3-way match</span></td></tr>
+    <tr><td><span class="zh-only">應付</span><span class="en-only">AP</span></td><td><span class="zh-only">建立會計</span><span class="en-only">Create Accounting</span></td><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">SLA 把發票、付款分錄轉入總帳</span><span class="en-only">SLA transfers invoice & payment journals to GL</span></td></tr>
+    <tr><td><span class="zh-only">費用</span><span class="en-only">Expenses</span></td><td><span class="zh-only">償付程序</span><span class="en-only">Reimbursement</span></td><td><span class="zh-only">應付</span><span class="en-only">AP</span></td><td><span class="zh-only">費用報支轉為付款請求發票</span><span class="en-only">Expense report becomes a payment-request invoice</span></td></tr>
+    <tr><td><span class="zh-only">費用</span><span class="en-only">Expenses</span></td><td><span class="zh-only">公司卡清算</span><span class="en-only">Card Settlement</span></td><td><span class="zh-only">應付</span><span class="en-only">AP</span></td><td><span class="zh-only">發卡行付款請求 + 清算科目沖銷</span><span class="en-only">Issuer payment request + clearing offset</span></td></tr>
+    <tr><td><span class="zh-only">應付</span><span class="en-only">AP</span></td><td><span class="zh-only">期間關帳</span><span class="en-only">Period Close</span></td><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">未過帳交易擋關帳，轉 GL 後方可關</span><span class="en-only">Unaccounted txns block close until transferred</span></td></tr>
+    <tr><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">外幣重估</span><span class="en-only">Revaluation</span></td><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">期末未實現損益分錄 + CTA</span><span class="en-only">Period-end unrealized gain-loss + CTA</span></td></tr>
+    <tr><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">公司間平衡</span><span class="en-only">Intercompany</span></td><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">跨法人自動補平衡分錄</span><span class="en-only">Auto intercompany balancing lines across LEs</span></td></tr>
+    <tr><td><span class="zh-only">總帳</span><span class="en-only">GL</span></td><td><span class="zh-only">過帳</span><span class="en-only">Posting</span></td><td><span class="zh-only">財報中心</span><span class="en-only">FRC</span></td><td><span class="zh-only">餘額 Cube 更新，財報即時反映</span><span class="en-only">Balances cube refreshed for live reporting</span></td></tr>
+  </tbody></table></div></div>
+  <h2 class="sec-title zh-only">兩大會計主線</h2><h2 class="sec-title en-only">Two Core Accounting Flows</h2>
+  <div class="cards">
+    <div class="card" style="border-left:4px solid var(--blue)"><h3>Procure-to-Pay (AP)</h3><div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px"><div style="display:flex;align-items:center;gap:8px"><span class="badge blue">1</span><span class="zh-only">供應商發票登入 → 驗證</span><span class="en-only">Supplier invoice → Validate</span></div><div style="display:flex;align-items:center;gap:8px"><span class="badge blue">2</span><span class="zh-only">三方比對 → 核准</span><span class="en-only">3-way match → Approve</span></div><div style="display:flex;align-items:center;gap:8px"><span class="badge blue">3</span><span class="zh-only">付款流程請求 → 付款</span><span class="en-only">PPR → Pay</span></div><div style="display:flex;align-items:center;gap:8px"><span class="badge blue">4</span><span class="zh-only">建立會計 → 轉入總帳</span><span class="en-only">Create accounting → GL</span></div></div><p style="margin-top:12px;font-size:13px;color:var(--mid)" class="zh-only">涉及：應付 + 費用 + SLA + 總帳</p><p style="margin-top:12px;font-size:13px;color:var(--mid)" class="en-only">Modules: Payables + Expenses + SLA + GL</p></div>
+    <div class="card" style="border-left:4px solid var(--green)"><h3>Record-to-Report (R2R)</h3><div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px"><div style="display:flex;align-items:center;gap:8px"><span class="badge green">1</span><span class="zh-only">子帳分錄 → 傳票匯入</span><span class="en-only">Subledger entries → Journal import</span></div><div style="display:flex;align-items:center;gap:8px"><span class="badge green">2</span><span class="zh-only">過帳 → 期末調整</span><span class="en-only">Post → Period adjustments</span></div><div style="display:flex;align-items:center;gap:8px"><span class="badge green">3</span><span class="zh-only">重估/換算 → 分攤</span><span class="en-only">Revalue/Translate → Allocate</span></div><div style="display:flex;align-items:center;gap:8px"><span class="badge green">4</span><span class="zh-only">期間關帳 → 財務報表</span><span class="en-only">Period close → Statements</span></div></div><p style="margin-top:12px;font-size:13px;color:var(--mid)" class="zh-only">涉及：總帳 + 公司間 + 財報中心</p><p style="margin-top:12px;font-size:13px;color:var(--mid)" class="en-only">Modules: GL + Intercompany + FRC</p></div>
+  </div>
+</div>
+<div class="page" id="page-gloss">
+  <div class="hero"><h1>📖 <span class="zh-only">術語速查表</span><span class="en-only">Glossary</span></h1><p class="sub zh-only">Oracle Financials Cloud 全模組關鍵術語 164 條，中英對照，支援搜尋。</p><p class="sub en-only">164 key terms across all Financials modules, bilingual, searchable.</p></div>
+  <div style="margin-bottom:16px"><input type="text" id="gloss-search" placeholder="🔍 搜尋術語 / Search terms..." oninput="filterGloss(this.value)" style="width:100%;padding:10px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;outline:none"></div>
+  <div class="section"><div class="section-body" style="padding:0"><table class="tbl" id="gloss-table"><thead><tr><th style="width:20%"><span class="zh-only">中文</span><span class="en-only">Chinese</span></th><th style="width:28%">English Term</th><th style="width:8%"><span class="zh-only">模組</span><span class="en-only">Module</span></th><th><span class="zh-only">說明</span><span class="en-only">Description</span></th></tr></thead><tbody id="gloss-body">
+    <tr><td class="term-zh">企業</td><td><strong>Enterprise</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">受共同控制與管理的一群法人（你的集團）。</td><td class="en-only">A group of legal entities under common control and management (your group of companies).</td></tr>
+    <tr><td class="term-zh">法人</td><td><strong>Legal Entity</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">法律賦予權利義務的主體；交易的簽約方，對應一個平衡段值。</td><td class="en-only">A party given rights/responsibilities by law; the contracting party on transactions, mapped to a balancing segment value.</td></tr>
+    <tr><td class="term-zh">業務單位</td><td><strong>Business Unit</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">子帳交易發生與分割的組織；指派預設法人與業務功能。</td><td class="en-only">The organization where subledger transactions occur and are partitioned; assigned a default legal entity and business functions.</td></tr>
+    <tr><td class="term-zh">分類帳</td><td><strong>Ledger</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">由 4C（科目表／曆／幣別／會計方法）定義的記帳帳；總帳運作於此。</td><td class="en-only">A book defined by the 4C (CoA/calendar/currency/accounting method); GL runs here.</td></tr>
+    <tr><td class="term-zh">科目表</td><td><strong>Chart of Accounts</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">會計彈性欄位，由段、值集、段標籤組成，決定帳戶代碼與報表結構。</td><td class="en-only">The accounting flexfield of segments, value sets, and segment labels that drives account codes and reporting.</td></tr>
+    <tr><td class="term-zh">段</td><td><strong>Segment</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">科目表的一個欄位（公司、成本中心、自然科目…），每段掛一個值集。</td><td class="en-only">A field of the CoA (company, cost center, natural account…); each carries one value set.</td></tr>
+    <tr><td class="term-zh">值集</td><td><strong>Value Set</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">段值的容器，控制長度、驗證型態；GL 用 Independent 驗證。</td><td class="en-only">A container for a segment's values controlling length and validation; GL uses Independent validation.</td></tr>
+    <tr><td class="term-zh">段標籤</td><td><strong>Segment Label</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">賦予段特殊功能，如主平衡段、自然科目、成本中心、公司間。</td><td class="en-only">Assigns a special role to a segment, e.g. primary balancing, natural account, cost center, intercompany.</td></tr>
+    <tr><td class="term-zh">平衡段值</td><td><strong>Balancing Segment Value</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">代表法人的公司段值；每張分錄按它平衡。</td><td class="en-only">The company segment value representing a legal entity; each journal balances by it.</td></tr>
+    <tr><td class="term-zh">會計方法</td><td><strong>Accounting Method</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">4C 的「Convention」；SLA 產生分錄所依的規則集，如 Standard Accrual。</td><td class="en-only">The "Convention" of the 4C; the rule set SLA uses to create journals, e.g. Standard Accrual.</td></tr>
+    <tr><td class="term-zh">子帳會計</td><td><strong>Subledger Accounting (SLA)</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">把子帳交易依會計方法轉成分錄並送進總帳的引擎。</td><td class="en-only">The engine that turns subledger transactions into journals per the accounting method and feeds GL.</td></tr>
+    <tr><td class="term-zh">功能設定管理</td><td><strong>Functional Setup Manager (FSM)</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">Cloud 應用的單一設定入口（Setup and Maintenance）。</td><td class="en-only">The single setup hub for Cloud applications (Setup and Maintenance).</td></tr>
+    <tr><td class="term-zh">服務項目</td><td><strong>Offering</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">整組企業流程，以單位訂閱管理，如 Financials。</td><td class="en-only">A group of enterprise processes subscribed as a unit, e.g. Financials.</td></tr>
+    <tr><td class="term-zh">功能區</td><td><strong>Functional Area</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">Offering 內的功能模組／子流程，如 Payables。</td><td class="en-only">A functional module/sub-process within an offering, e.g. Payables.</td></tr>
+    <tr><td class="term-zh">法律管轄區</td><td><strong>Legal Jurisdiction</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">某法規適用的地理領域；分識別、所得稅、交易稅三型。</td><td class="en-only">A territory where legislation applies; three types — identifying, income tax, transaction tax.</td></tr>
+    <tr><td class="term-zh">法律報告單位</td><td><strong>Legal Reporting Unit (LRU)</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">法人建立時自動產生的登記單位（登記營業處）；可再建額外的。</td><td class="en-only">A registration unit auto-created with a legal entity (registered office); additional ones can be added.</td></tr>
+    <tr><td class="term-zh">交叉驗證規則</td><td><strong>Cross-Validation Rule</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">阻擋無效帳戶組合的規則（針對整組組合）。</td><td class="en-only">A rule that blocks invalid account combinations (applies to the whole combination).</td></tr>
+    <tr><td class="term-zh">動態插入</td><td><strong>Dynamic Insert</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">新帳戶組合若通過交叉驗證，即自動加入組合表可供使用。</td><td class="en-only">A new account combination that passes cross-validation is auto-added to the combinations table for use.</td></tr>
+    <tr><td class="term-zh">公司間交易</td><td><strong>Intercompany Transaction</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">跨法人的交易，由公司間平衡規則自動產生平衡分錄。</td><td class="en-only">A transaction crossing legal entities; balancing lines are generated by intercompany balancing rules.</td></tr>
+    <tr><td class="term-zh">快速導入</td><td><strong>Rapid Implementation</strong></td><td><span class="badge gray">基礎</span></td><td class="zh-only">用試算表載入約 90 個關鍵設定任務的加速導入法。</td><td class="en-only">An accelerated approach loading about 90 critical setup tasks via spreadsheets.</td></tr>
+    <tr><td class="term-zh">應付管理</td><td><strong>Payables (AP)</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">管理供應商發票與付款的財務模組</td><td class="en-only">Financials module managing supplier invoicing and payments</td></tr>
+    <tr><td class="term-zh">採購到付款</td><td><strong>Procure-to-Pay (P2P)</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">從請購、採購單、收貨到發票與付款的端對端流程</td><td class="en-only">End-to-end flow from requisition, PO, receipt to invoice and payment</td></tr>
+    <tr><td class="term-zh">供應商</td><td><strong>Supplier</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">交易夥伴社群下的全域實體，不歸屬單一業務單位</td><td class="en-only">Global entity in the Trading Community, not tied to one BU</td></tr>
+    <tr><td class="term-zh">供應商據點</td><td><strong>Supplier Site</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">供應商與業務單位間的關係，承載付款條件與控制</td><td class="en-only">Relationship between supplier and BU, carrying terms and controls</td></tr>
+    <tr><td class="term-zh">據點指派</td><td><strong>Site Assignment</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">控制哪個業務單位可交易並定義開帳業務單位</td><td class="en-only">Controls which BU can transact and defines the Bill-to BU</td></tr>
+    <tr><td class="term-zh">潛在供應商</td><td><strong>Prospective Supplier</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">僅能參與招標與資格審查，不能下單開票</td><td class="en-only">Can only join sourcing/qualification, not order or invoice</td></tr>
+    <tr><td class="term-zh">可支出供應商</td><td><strong>Spend Authorized Supplier</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">可完整往來：下單、開發票、付款</td><td class="en-only">Ready to trade fully: order, invoice, pay</td></tr>
+    <tr><td class="term-zh">採購代理人</td><td><strong>Procurement Agent</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">有權管理供應商的角色，僅導入應付時 AP 使用者需設定</td><td class="en-only">Role with authority to manage suppliers; required for AP users in AP-only setups</td></tr>
+    <tr><td class="term-zh">交易夥伴社群架構</td><td><strong>TCA</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">Trading Community Architecture，儲存黨層與 Registry ID</td><td class="en-only">Trading Community Architecture, stores party level and Registry ID</td></tr>
+    <tr><td class="term-zh">標準發票</td><td><strong>Standard Invoice</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">最常見型別，支付貨品/服務，可比對或不比對 PO</td><td class="en-only">Most common type, pays for goods/services, matched or unmatched</td></tr>
+    <tr><td class="term-zh">貸項通知</td><td><strong>Credit Memo</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">供應商開立的負額貸項（退貨/折扣/調整）</td><td class="en-only">Supplier-issued negative credit (returns/discounts/adjustments)</td></tr>
+    <tr><td class="term-zh">借項通知</td><td><strong>Debit Memo</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">供應商未給貸項時己方登錄的負額文件</td><td class="en-only">Negative document you record when supplier gives no credit</td></tr>
+    <tr><td class="term-zh">預付</td><td><strong>Prepayment</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">貨品/服務前的預先付款，付清後可套用到標準發票</td><td class="en-only">Advance payment; once paid, can be applied to a standard invoice</td></tr>
+    <tr><td class="term-zh">付款請求</td><td><strong>Payment Request</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">付給非供應商收款人（員工報帳、客戶退款）</td><td class="en-only">Pays non-supplier payees (expense reports, customer refunds)</td></tr>
+    <tr><td class="term-zh">發票分配</td><td><strong>Invoice Distribution</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">儲存每一發票行的會計細節、產生分錄的一層</td><td class="en-only">Stores per-line accounting detail; the layer that generates entries</td></tr>
+    <tr><td class="term-zh">分配集</td><td><strong>Distribution Set</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">自動化非 PO 發票分配（含或不含百分比）</td><td class="en-only">Automates distributions on non-PO invoices (with/without percentages)</td></tr>
+    <tr><td class="term-zh">比對</td><td><strong>Matching</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">發票關聯 PO/收貨/消耗通知，防止溢付</td><td class="en-only">Associates invoice to PO/receipt/consumption advice, prevents overbilling</td></tr>
+    <tr><td class="term-zh">分期</td><td><strong>Installment</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">一張發票的多個到期期別，各有金額與到期日</td><td class="en-only">Multiple due periods of one invoice, each with amount and due date</td></tr>
+    <tr><td class="term-zh">付款群組</td><td><strong>Pay Group</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">供付款分類，設在據點層級可於發票覆寫</td><td class="en-only">Payment categorization, set at site level, overridable on invoice</td></tr>
+    <tr><td class="term-zh">容差</td><td><strong>Tolerance</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">發票與 PO/收貨允許差異，超出掛保留</td><td class="en-only">Allowed variance vs PO/receipt; exceeding places a hold</td></tr>
+    <tr><td class="term-zh">子分類帳會計</td><td><strong>Subledger Accounting (SLA)</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">依規則為發票與付款產生分錄送進總帳的引擎</td><td class="en-only">Engine generating invoice/payment entries into the GL per rules</td></tr>
+    <tr><td class="term-zh">發票驗證</td><td><strong>Invoice Validation</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">付款/過帳前的系統檢查：容差、分配、稅、扣繳、期別、資金，並掛/釋保留</td><td class="en-only">Pre-payment/accounting check: tolerances, distributions, tax, withholding, period, funds; applies/releases holds</td></tr>
+    <tr><td class="term-zh">發票核准</td><td><strong>Invoice Approval</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">依核准群組與規則路由的人工放行工作流（若組織要求）</td><td class="en-only">Human sign-off workflow routed by approval groups/rules (if required)</td></tr>
+    <tr><td class="term-zh">三方比對</td><td><strong>Three-Way Match</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">比對發票、採購單、收貨三者一致才放行</td><td class="en-only">Compares invoice, PO and receipt before release</td></tr>
+    <tr><td class="term-zh">發票保留</td><td><strong>Invoice Hold</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">阻止付款（有時阻止過帳）的旗標，可系統或手動施加</td><td class="en-only">Flag that blocks payment (sometimes accounting); system or manual</td></tr>
+    <tr><td class="term-zh">系統保留</td><td><strong>System Hold</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">驗證時自動掛的保留，須先解除例外再重驗釋放</td><td class="en-only">Auto-applied at validation; needs exception resolved then re-validate</td></tr>
+    <tr><td class="term-zh">收貨數量保留</td><td><strong>Received Quantity Hold</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">開單量超過收貨量時掛的系統保留</td><td class="en-only">System hold when billed qty exceeds received qty</td></tr>
+    <tr><td class="term-zh">分配差異保留</td><td><strong>Distribution Variance Hold</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">分配加總不等於行金額時掛的系統保留</td><td class="en-only">System hold when distributions don't sum to line amount</td></tr>
+    <tr><td class="term-zh">付款條件</td><td><strong>Payment Term</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">決定到期日與折扣的條款（如 Net 30）</td><td class="en-only">Terms driving due date and discount (e.g. Net 30)</td></tr>
+    <tr><td class="term-zh">分配</td><td><strong>Distribution</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">儲存會計日、金額與科目組合的層級，產生分錄</td><td class="en-only">Level storing accounting date, amount, code combination; creates entries</td></tr>
+    <tr><td class="term-zh">發票價格差異</td><td><strong>Invoice Price Variance (IPV)</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">發票單價與 PO 單價的差額所記入的科目</td><td class="en-only">Account for the difference between invoice and PO unit price</td></tr>
+    <tr><td class="term-zh">貸項通知 / 借項通知</td><td><strong>Credit / Debit Memo</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">供應商（或本方）用以更正價格或數量的負向單據</td><td class="en-only">Negative document to correct price or quantity</td></tr>
+    <tr><td class="term-zh">比對層級</td><td><strong>Match Approval Level</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">PO Schedules 上設定的二/三/四方比對要求</td><td class="en-only">2/3/4-way requirement set on PO Schedules</td></tr>
+    <tr><td class="term-zh">保留解決路由</td><td><strong>Holds Resolution Routing</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">把可手動釋放保留路由給採購員/申請人的預定工作流</td><td class="en-only">Predefined workflow routing releasable holds to buyer/requester</td></tr>
+    <tr><td class="term-zh">付款流程請求</td><td><strong>Payment Process Request (PPR)</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">批次付款引擎，用選取條件+付款屬性+處理選項自動撈發票、分組付款、產出付款檔。</td><td class="en-only">Batch engine that pulls invoices and generates payment files via selection criteria, payment attributes and processing options.</td></tr>
+    <tr><td class="term-zh">出納</td><td><strong>Disbursement</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">對發票記錄付款所產生的「款項支出」，日後與銀行對帳單勾稽。</td><td class="en-only">The outgoing payment recorded against invoices, later reconciled to the bank statement.</td></tr>
+    <tr><td class="term-zh">付款方式</td><td><strong>Payment Method</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">支票、電匯或電子等付款手段，決定用哪種格式與 PPP。</td><td class="en-only">The means of payment (check, wire, electronic) that drives format and PPP.</td></tr>
+    <tr><td class="term-zh">付款流程設定檔</td><td><strong>Payment Process Profile (PPP)</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">綁定付款方式的處理設定，決定付款格式與輸出（如 Laser Check、SWIFT）。</td><td class="en-only">Processing setup tied to a method, defining format and output (e.g. Laser Check, SWIFT).</td></tr>
+    <tr><td class="term-zh">付款文件</td><td><strong>Payment Document</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">支票付款所需，綁在出納帳戶上並決定支票起始號碼。</td><td class="en-only">Required for check payments; tied to the bank account and setting the starting check number.</td></tr>
+    <tr><td class="term-zh">單獨付款</td><td><strong>Pay Alone</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">須單張開付款、不可與其他發票合併的發票標記。</td><td class="en-only">A flag forcing an invoice to be paid on its own, never bundled.</td></tr>
+    <tr><td class="term-zh">預付款</td><td><strong>Prepayment</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">交貨前先付的預付款，屬發票型別，付清後可沖抵標準發票。</td><td class="en-only">An advance invoice type paid before delivery; once paid, it can offset a standard invoice.</td></tr>
+    <tr><td class="term-zh">預付沖銷</td><td><strong>Prepayment Application</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">把已付清的預付抵到標準發票，降低實付金額的動作。</td><td class="en-only">Applying a fully-paid prepayment to a standard invoice to reduce the amount due.</td></tr>
+    <tr><td class="term-zh">退款</td><td><strong>Refund</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">記錄供應商把款項退還的收款，付款型別之一（現金流入）。</td><td class="en-only">A payment type recording money a supplier returns (cash inflow).</td></tr>
+    <tr><td class="term-zh">條件日期基準</td><td><strong>Terms Date Basis</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">計算到期日的起算日：發票日、系統日或收貨日。</td><td class="en-only">The start date for due-date math: invoice, system or goods-received date.</td></tr>
+    <tr><td class="term-zh">現金清算</td><td><strong>Cash Clearing</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">付款送出到銀行兌現之間的過渡科目，啟用「兌現時入帳」時使用。</td><td class="en-only">A transit account between payment issue and bank clearing, used when clearing accounting is on.</td></tr>
+    <tr><td class="term-zh">付款核准</td><td><strong>Invoice Approval</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">付款前的核准關卡；內建規則：金額 ≥1,000 需主管核准。</td><td class="en-only">An approval gate before payment; default rule requires supervisor sign-off at ≥1,000.</td></tr>
+    <tr><td class="term-zh">費用報支單</td><td><strong>Expense Report</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">彙整現金與公司卡費用項目、供核准／稽核／付款的單據</td><td class="en-only">A document bundling cash and card expense items for approval, audit, and payment</td></tr>
+    <tr><td class="term-zh">預借現金</td><td><strong>Cash Advance</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">出差前預付給員工、日後以報支沖銷的款項</td><td class="en-only">A pre-payment to an employee later netted off by an expense report</td></tr>
+    <tr><td class="term-zh">沖銷到期日</td><td><strong>Cash Advance Due Date</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">稽核員指定、預借須套到報支單的最後期限</td><td class="en-only">Auditor-set date by which the advance must be applied to a report</td></tr>
+    <tr><td class="term-zh">清算科目</td><td><strong>Clearing Account</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">暫收暫付的中繼科目（預借清算、公司卡清算），沖銷後歸零</td><td class="en-only">In-transit account (advance/card clearing) that nets to zero after application</td></tr>
+    <tr><td class="term-zh">公司卡計畫</td><td><strong>Corporate Card Program</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">接收與處理發卡行交易檔的設定，含對照規則</td><td class="en-only">Setup to receive and process issuer transaction files, incl. mapping rules</td></tr>
+    <tr><td class="term-zh">對照規則</td><td><strong>Mapping Rule</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">把發卡行交易代碼對應到卡片費用類型的規則</td><td class="en-only">Rule mapping issuer transaction codes to card expense types</td></tr>
+    <tr><td class="term-zh">個人付／公司付／雙方付</td><td><strong>Individual / Company / Both Pay</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">三種決定誰付發卡行的公司卡付款模式</td><td class="en-only">Three card payment options for who pays the issuer</td></tr>
+    <tr><td class="term-zh">稽核選取規則</td><td><strong>Audit Selection Rule</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">決定哪些報支自動被抽核的規則（百分比／金額／違規）</td><td class="en-only">Rule that auto-selects reports for audit (%, amount, violation)</td></tr>
+    <tr><td class="term-zh">稽核清單</td><td><strong>Audit List</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">列於其上者的報支一律抽核；違規者可自動加入</td><td class="en-only">Members' reports are always audited; violators can be auto-added</td></tr>
+    <tr><td class="term-zh">短付</td><td><strong>Short-Pay</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">稽核員只核付報支的一部分金額</td><td class="en-only">Auditor pays only part of the claimed amount</td></tr>
+    <tr><td class="term-zh">付款保留</td><td><strong>Payment Hold</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">符合條件時報支被暫停付款，須稽核員釋放</td><td class="en-only">Report withheld from payment under rules; auditor must release</td></tr>
+    <tr><td class="term-zh">費用政策</td><td><strong>Expense Policy</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">依類別設定的費率／每日上限與收據要求</td><td class="en-only">Per-category rates, daily limits, and receipt requirements</td></tr>
+    <tr><td class="term-zh">每日津貼</td><td><strong>Per Diem</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">按日給付的固定差旅補貼政策</td><td class="en-only">Policy paying a fixed daily allowance for travel</td></tr>
+    <tr><td class="term-zh">支出授權</td><td><strong>Spend Authorization</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">對未來估計花費的事前核准請求</td><td class="en-only">Pre-approval request for estimated future spend</td></tr>
+    <tr><td class="term-zh">員工負債科目</td><td><strong>Employee Liability Account</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">記錄公司應償付員工金額的 AP 負債科目</td><td class="en-only">AP liability account for amounts owed to the employee</td></tr>
+    <tr><td class="term-zh">開放介面表</td><td><strong>Payables Open Interface</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">Reimbursement 程序寫入以產生付款請求的過渡表</td><td class="en-only">Staging tables the Reimbursement process writes to create payment requests</td></tr>
+    <tr><td class="term-zh">償付程序</td><td><strong>Process Expense Reimbursements and Cash Advances</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">產生員工與發卡行付款請求（及預借付款）的排程程序</td><td class="en-only">Scheduled job that creates employee and issuer payment requests (and advance payments)</td></tr>
+    <tr><td class="term-zh">影像收據</td><td><strong>Imaged Receipt</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">掃描或拍照轉為數位的收據</td><td class="en-only">A receipt digitized by scanning or camera</td></tr>
+    <tr><td class="term-zh">建立會計</td><td><strong>Create Accounting</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">把子帳事件轉成分錄的 ESS 程序，可草稿或正式</td><td class="en-only">ESS process turning subledger events into journals; Draft or Final</td></tr>
+    <tr><td class="term-zh">分錄規則集</td><td><strong>Journal Entry Rule Set</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">為某事件類別產生完整分錄的規則集合</td><td class="en-only">Rules producing a complete journal for an event class</td></tr>
+    <tr><td class="term-zh">分錄行規則</td><td><strong>Journal Line Rule</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">定義單一借或貸線</td><td class="en-only">Defines a single debit or credit line</td></tr>
+    <tr><td class="term-zh">科目規則</td><td><strong>Account Rule</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">決定分錄行的會計科目組合</td><td class="en-only">Determines the account code combination for a line</td></tr>
+    <tr><td class="term-zh">轉入總帳</td><td><strong>Transfer to GL</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">把 Final 分錄搬進 GL 介面表再匯入 GL</td><td class="en-only">Moves Final journals to the GL interface then imports into GL</td></tr>
+    <tr><td class="term-zh">日記帳匯入</td><td><strong>Journal Import</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">把介面表資料匯入 GL 批／頭／行</td><td class="en-only">Imports interface data into GL batches/headers/lines</td></tr>
+    <tr><td class="term-zh">餘額 Cube</td><td><strong>GL Balances Cube</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">過帳後更新的預彙總餘額資料結構</td><td class="en-only">Pre-aggregated balance structure updated on posting</td></tr>
+    <tr><td class="term-zh">期間關帳</td><td><strong>Period Close</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">確認全部已會計過帳後關閉應付期間</td><td class="en-only">Closing the Payables period after all is accounted and posted</td></tr>
+    <tr><td class="term-zh">應付選項</td><td><strong>Payables / Common Options</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">業務單位層的預設科目與控制</td><td class="en-only">BU-level default accounts and controls</td></tr>
+    <tr><td class="term-zh">自動抵銷</td><td><strong>Automatic Offsets</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">跨平衡分段自動產生負債抵銷分錄</td><td class="en-only">Auto-generates offsetting liability lines across balancing segments</td></tr>
+    <tr><td class="term-zh">費用計提</td><td><strong>Expense Accrual</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">收貨時或期末認列已收未收發票費用</td><td class="en-only">Recognizes received-not-invoiced expense at receipt or period end</td></tr>
+    <tr><td class="term-zh">會計日期基礎</td><td><strong>Accounting Date Basis</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">決定發票會計日取哪個日期的選項</td><td class="en-only">Option deciding which date becomes the invoice accounting date</td></tr>
+    <tr><td class="term-zh">應付對總帳調節</td><td><strong>Payables-to-Ledger Reconciliation</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">比對子帳與 GL 餘額並可下鑽差異的報告</td><td class="en-only">Report comparing subledger vs GL balances with drill-down</td></tr>
+    <tr><td class="term-zh">暫記科目</td><td><strong>Suspense Account</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">無效科目時 Invalid Account 選項替換用的科目</td><td class="en-only">Account used to replace invalid accounts via Invalid Account option</td></tr>
+    <tr><td class="term-zh">佐證參考</td><td><strong>Supporting Reference</strong></td><td><span class="badge blue">應付</span></td><td class="zh-only">附加在分錄上的分析維度（如付款方式）</td><td class="en-only">Analysis dimension attached to journals (e.g. payment method)</td></tr>
+    <tr><td class="term-zh">主要 / 次要分類帳</td><td><strong>Primary / Secondary Ledger</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">主要=必備主帳；次要=選配，供替代會計表述，4C 任一可不同</td><td class="en-only">Primary = required main book; secondary = optional alternate representation, any 4C may differ</td></tr>
+    <tr><td class="term-zh">報表幣別</td><td><strong>Reporting Currency</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">同會計表述、僅幣別不同的額外表述，掛在主要或次要分類帳下</td><td class="en-only">Additional representation differing only in currency, linked to a primary/secondary ledger</td></tr>
+    <tr><td class="term-zh">分類帳集</td><td><strong>Ledger Set</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">把共用科目表與日曆的多本分類帳當一本，供結帳/安全/報表</td><td class="en-only">Groups ledgers sharing COA &amp; calendar to treat as one for close/security/reporting</td></tr>
+    <tr><td class="term-zh">段 / 段標籤</td><td><strong>Segment / Segment Label</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">科目表的欄位；標籤賦予特殊功能（主要平衡段、自然帳戶段、成本中心段）</td><td class="en-only">A COA field; labels assign special function (Primary Balancing, Natural Account, Cost Center)</td></tr>
+    <tr><td class="term-zh">階層</td><td><strong>Hierarchy / Tree</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">段值的父子關係；發布到餘額 Cube 後子值只能掛一個父</td><td class="en-only">Parent-child relationships of values; once published to the balances cube a child rolls to one parent</td></tr>
+    <tr><td class="term-zh">主要平衡段</td><td><strong>Primary Balancing Segment</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">交易須在此段平衡；通常是公司/法律個體段</td><td class="en-only">Segment where journals must balance; usually the company/legal-entity segment</td></tr>
+    <tr><td class="term-zh">科目組合</td><td><strong>Account Combination</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">各段值組成、唯一識別一個帳戶的組合（如 101-000-13000）</td><td class="en-only">A combination of segment values uniquely identifying an account (e.g. 101-000-13000)</td></tr>
+    <tr><td class="term-zh">組合集</td><td><strong>Combination Set</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">列舉最多 5 段的 Allow/Disallow 組合清單，供大量或外部維護的組合</td><td class="en-only">Allow/Disallow lists across up to 5 segments, for bulk or externally maintained combinations</td></tr>
+    <tr><td class="term-zh">段值安全</td><td><strong>Segment Value Security</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">限制使用者能存取哪些單一段值；規則累積、透過 SVS 角色掛使用者</td><td class="en-only">Restricts which single segment values a user accesses; rules cumulative, via SVS roles</td></tr>
+    <tr><td class="term-zh">控制帳戶</td><td><strong>Control Account</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">按第三方維護餘額並禁手動日記帳的帳戶（供應商/客戶/第三方）</td><td class="en-only">Account maintaining balances by third party and blocking manual journals (supplier/customer/third-party)</td></tr>
+    <tr><td class="term-zh">資料存取集</td><td><strong>Data Access Set</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">授予分類帳或特定平衡段值的存取（唯讀/讀寫）；須指派給使用者+角色</td><td class="en-only">Grants ledger or specific balancing-segment-value access (read-only/write); must be assigned to user+role</td></tr>
+    <tr><td class="term-zh">動態組合建立</td><td><strong>Dynamic Combination Creation</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Key Flexfield 實例設定；啟用時未違反 CVR 的新組合自動加入組合表</td><td class="en-only">Key Flexfield instance setting; when on, new combos passing CVRs auto-insert into the combinations table</td></tr>
+    <tr><td class="term-zh">保留盈餘帳戶</td><td><strong>Retained Earnings Account</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">年底收入與費用淨額結轉之處；帳戶類型設錯會誤把餘額結轉</td><td class="en-only">Where revenue &amp; expense net at year end; wrong account type causes balances to be swept in error</td></tr>
+    <tr><td class="term-zh">批次</td><td><strong>Batch</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">傳票的最上層容器（GL_JE_BATCHES）；批次內傳票須同期間、同曆別與科目表</td><td class="en-only">Top tier container for journals (GL_JE_BATCHES); journals in a batch share period, calendar &amp; COA</td></tr>
+    <tr><td class="term-zh">傳票</td><td><strong>Journal (Header)</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">中層（GL_JE_HEADERS）；含分類帳、會計日期、類別、幣別、沖銷資訊</td><td class="en-only">Middle tier (GL_JE_HEADERS); ledger, accounting date, category, currency, reversal info</td></tr>
+    <tr><td class="term-zh">明細</td><td><strong>Line</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">底層（GL_JE_LINES）；科目 + 金額，借貸總額須相等</td><td class="en-only">Bottom tier (GL_JE_LINES); account + amount, debits must equal credits</td></tr>
+    <tr><td class="term-zh">來源</td><td><strong>Source</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">標明傳票來處（Manual、Payables…）；可凍結防竄改</td><td class="en-only">Identifies where a journal came from (Manual, Payables…); can be frozen</td></tr>
+    <tr><td class="term-zh">類別</td><td><strong>Category</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">標明傳票性質（Adjustment、Accrual…）</td><td class="en-only">Identifies a journal's nature (Adjustment, Accrual…)</td></tr>
+    <tr><td class="term-zh">統計傳票</td><td><strong>Statistical Journal</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">記錄非金額單位，可單邊、無須平衡</td><td class="en-only">Records non-monetary units; can be one-sided, need not balance</td></tr>
+    <tr><td class="term-zh">過帳</td><td><strong>Posting</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">將傳票金額更新至科目餘額的程序；須完成狀態且期間開啟</td><td class="en-only">Process updating account balances; requires Complete status and open period</td></tr>
+    <tr><td class="term-zh">自動過帳</td><td><strong>AutoPost</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">用準則集依條件自動挑選並過帳批次，可排程</td><td class="en-only">Selects &amp; posts batches automatically via criteria sets; schedulable</td></tr>
+    <tr><td class="term-zh">沖銷</td><td><strong>Reversal</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">為已過帳傳票產生反向傳票；每筆只能沖一次</td><td class="en-only">Generates an offsetting journal for a posted journal; once only</td></tr>
+    <tr><td class="term-zh">沖銷準則集</td><td><strong>Reversal Criteria Set</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">為各類別指定沖銷期間與方法，指派至分類帳以自動沖銷</td><td class="en-only">Assigns reversal period &amp; method per category, attached to ledger for auto-reversal</td></tr>
+    <tr><td class="term-zh">暫記帳戶</td><td><strong>Suspense Account</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">傳票不平時暫掛差額使其平衡並過帳的科目</td><td class="en-only">Account that parks the imbalance so a journal can balance and post</td></tr>
+    <tr><td class="term-zh">傳票匯入</td><td><strong>Journal Import</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">從 GL 介面表產生可過帳傳票的程序</td><td class="en-only">Process that builds postable journals from the GL interface table</td></tr>
+    <tr><td class="term-zh">GL 介面表</td><td><strong>GL Interface Table</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">匯入資料的暫存表，保護總帳資料完整性</td><td class="en-only">Staging table for import data, protecting GL data integrity</td></tr>
+    <tr><td class="term-zh">ADFDI 試算表傳票</td><td><strong>ADFDI Spreadsheet Journal</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Excel 工作簿輸入傳票（單筆/多筆/大量三張工作表）</td><td class="en-only">Excel workbook journal entry (single/multiple/bulk sheets)</td></tr>
+    <tr><td class="term-zh">凍結來源</td><td><strong>Frozen Source</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">禁止匯入後編輯的來源；其傳票不可沖銷</td><td class="en-only">Source that blocks edits after import; its journals cannot be reversed</td></tr>
+    <tr><td class="term-zh">過帳執行報表</td><td><strong>Posting Execution Report</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">過帳程序結束後自動產生，列出過帳結果與錯誤</td><td class="en-only">Auto-generated after posting; lists results and errors</td></tr>
+    <tr><td class="term-zh">完成狀態</td><td><strong>Completion Status</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">傳票須為 Complete 才可過帳；Incomplete 可擋住過帳</td><td class="en-only">Must be Complete to post; Incomplete blocks posting</td></tr>
+    <tr><td class="term-zh">保留盈餘</td><td><strong>Retained Earnings</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">過帳到前年度時，損益科目影響會調整此餘額</td><td class="en-only">Adjusted for income/expense effects when posting to a prior year</td></tr>
+    <tr><td class="term-zh">關帳監控器</td><td><strong>Close Monitor</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">以帳套集階層檢視關帳進度、子帳開閉、高階損益與換算狀態</td><td class="en-only">Ledger-set view of close progress, open subledgers, P&amp;L and translation status</td></tr>
+    <tr><td class="term-zh">換算</td><td><strong>Translation</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">把功能貨幣餘額整體重述成報表幣別供合併，差額入 CTA</td><td class="en-only">Restate functional-currency balances into a reporting currency; gap to CTA</td></tr>
+    <tr><td class="term-zh">重估</td><td><strong>Revaluation</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">依期末匯率重估外幣未清餘額，產生未實現損益</td><td class="en-only">Revalue open foreign balances at period-end rate for unrealized gain/loss</td></tr>
+    <tr><td class="term-zh">重衡量</td><td><strong>Remeasurement</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">把帳載貨幣收入費用轉功能貨幣，差額入淨利</td><td class="en-only">Convert accounting-currency revenue/expense to functional; difference to net income</td></tr>
+    <tr><td class="term-zh">轉換</td><td><strong>Conversion</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">交易入帳當下即時把外幣換成功能貨幣</td><td class="en-only">On-the-spot FX from foreign to functional currency at entry</td></tr>
+    <tr><td class="term-zh">累積換算調整</td><td><strong>CTA</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Cumulative Translation Adjustment；換算因用不同匯率產生的配平差，入權益</td><td class="en-only">Cumulative Translation Adjustment; the balancing gap from mixed rates, booked to equity</td></tr>
+    <tr><td class="term-zh">歷史匯率</td><td><strong>Historical Rate</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">為長期/權益帳戶指定的固定匯率或金額，供換算使用</td><td class="en-only">Fixed rate/amount for long-term/equity accounts, used by translation</td></tr>
+    <tr><td class="term-zh">功能貨幣</td><td><strong>Functional Currency</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">帳套的主要記帳貨幣（全球業務的貨幣）</td><td class="en-only">The ledger's primary bookkeeping currency (the worldwide business currency)</td></tr>
+    <tr><td class="term-zh">未實現損益</td><td><strong>Unrealized Gain/Loss</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">餘額未收付前因匯率變動產生的損益，由重估產生</td><td class="en-only">FX gain/loss before settlement, from revaluation</td></tr>
+    <tr><td class="term-zh">已實現損益</td><td><strong>Realized Gain/Loss</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">實際收付當下算出的匯兌損益，由子帳付款產生</td><td class="en-only">FX gain/loss at actual settlement, from subledger payment</td></tr>
+    <tr><td class="term-zh">分攤</td><td><strong>Allocation</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">把成本/收入池按比例攤到多個接收方的規則</td><td class="en-only">A rule spreading a cost/revenue pool proportionally to receivers</td></tr>
+    <tr><td class="term-zh">來源／基礎／目標／抵銷</td><td><strong>Source/Basis/Target/Offset</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">分攤四要素：池、比例、落點、配平帳</td><td class="en-only">Allocation essentials: pool, percentage, destination, balancing account</td></tr>
+    <tr><td class="term-zh">計算管理員</td><td><strong>Calculation Manager</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">設計分攤與公式規則、驗證與部署的工具</td><td class="en-only">Tool to build, validate, and deploy allocation and formula rules</td></tr>
+    <tr><td class="term-zh">餘額立方體</td><td><strong>Balances Cube</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">多維預聚合餘額，分攤與報表據以快速運算</td><td class="en-only">Multidimensional pre-aggregated balances used by allocations and reporting</td></tr>
+    <tr><td class="term-zh">匯率類型</td><td><strong>Rate Type</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Spot/Corporate/User/Fixed 等，決定用哪組匯率</td><td class="en-only">Spot/Corporate/User/Fixed—determines which rate set applies</td></tr>
+    <tr><td class="term-zh">未來可輸入期間</td><td><strong>Future Enterable</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">可建/匯入分錄但不能過帳的期間狀態</td><td class="en-only">Period status allowing entry/import but not posting</td></tr>
+    <tr><td class="term-zh">嚴格 GL 關帳</td><td><strong>Strict GL Period Close</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">子帳未關或有未處理交易時，阻止 GL 期間關閉的防呆</td><td class="en-only">Prevents closing GL while subledger periods are open or transactions unprocessed</td></tr>
+    <tr><td class="term-zh">公司內交易</td><td><strong>Intracompany</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">同一主平衡段值內、但第二/第三平衡段不平衡時的對消，由額外平衡與清算選項處理。</td><td class="en-only">Offsetting within one primary balancing segment value when the 2nd/3rd segment is out of balance; handled by additional balancing/clearing options.</td></tr>
+    <tr><td class="term-zh">公司間平衡規則</td><td><strong>IC Balancing Rules</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">企業層級四層規則，決定用哪個應收/應付科目自動補平衡線。</td><td class="en-only">Enterprise-level 4-tier rules deciding which AR/AP accounts auto-insert balancing lines.</td></tr>
+    <tr><td class="term-zh">交易類型</td><td><strong>Transaction Type</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">控制公司間交易是否需核准、是否開發票。</td><td class="en-only">Controls whether an IC transaction needs approval and/or invoicing.</td></tr>
+    <tr><td class="term-zh">公司間組織</td><td><strong>Intercompany Organization</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">交易的提供方/接收方；多層級中可當提供方、接收方或結算組織。</td><td class="en-only">Provider/receiver of a txn; in Multitier can be provider, receiver, or clearing org.</td></tr>
+    <tr><td class="term-zh">多層級公司間</td><td><strong>Multitier Intercompany</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">用協議＋轉撥授權驅動、可經結算組織的複雜資金/頭寸調撥。</td><td class="en-only">Complex fund/position transfers via Agreement + Transfer Authorization, optionally through clearing orgs.</td></tr>
+    <tr><td class="term-zh">交叉計費</td><td><strong>Cross Charge</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">集團內不同法人間的成本/收入分攤；可從 AP 發票自動觸發。</td><td class="en-only">Allocation of costs/revenues between entities in a group; can auto-trigger from an AP invoice.</td></tr>
+    <tr><td class="term-zh">財報中心</td><td><strong>Financial Reporting Center (FRC)</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">財務使用者主入口，集中多種工具的報表。</td><td class="en-only">Primary portal for finance users, aggregating reports from multiple tools.</td></tr>
+    <tr><td class="term-zh">財報 Web Studio</td><td><strong>FR Web Studio</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">EPM 工作區裡建立董事會品質財報的網頁工具，取數自 Cube。</td><td class="en-only">Web tool in the EPM workspace for boardroom-quality reports, sourced from the cube.</td></tr>
+    <tr><td class="term-zh">Smart View</td><td><strong>Smart View</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Microsoft Office 的 Oracle 增益集，用 Excel 即時查多維餘額；只能下載後執行。</td><td class="en-only">Oracle add-in for MS Office to query live multidimensional balances in Excel; download-to-run only.</td></tr>
+    <tr><td class="term-zh">維度</td><td><strong>Dimension</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Cube 的預定義業務分類（期間、分類帳、情境、幣別等），不可新增。</td><td class="en-only">Predefined business categories of the cube (period, ledger, scenario, currency…); cannot be added.</td></tr>
+    <tr><td class="term-zh">帳戶檢視器</td><td><strong>Account Inspector</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">互動式即時餘額查詢，可樞紐、鑽取、匯出 Excel。</td><td class="en-only">Interactive live balance inquiry with pivot, drill-down, Excel export.</td></tr>
+    <tr><td class="term-zh">帳戶監控器</td><td><strong>Account Monitor</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">總帳儀表板工具，以帳戶群組＋門檻即時比對餘額變動。</td><td class="en-only">GL dashboard tool comparing balance variances live via Account Groups + thresholds.</td></tr>
+    <tr><td class="term-zh">帳戶群組</td><td><strong>Account Group</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">一組被監控的關鍵科目，供 infolet、Sunburst、監控器顯示。</td><td class="en-only">A set of monitored key accounts feeding infolets, Sunburst, and monitors.</td></tr>
+    <tr><td class="term-zh">Sunburst</td><td><strong>Sunburst</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">財報中心的圓環圖式帳戶群組餘額視覺化。</td><td class="en-only">Radial visualization of Account Group balances in the FRC.</td></tr>
+    <tr><td class="term-zh">BI Catalog</td><td><strong>BI Catalog</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">存放財報的儲存庫；自訂報表放「共用&gt;Custom&gt;Financials」，私人放「My Folders」。</td><td class="en-only">Repository for reports; custom in "Shared&gt;Custom&gt;Financials," personal in "My Folders."</td></tr>
+    <tr><td class="term-zh">OTBI</td><td><strong>OTBI</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">Oracle 交易式商業智慧，做臨時分析與儀表板。</td><td class="en-only">Oracle Transactional Business Intelligence, for ad hoc analyses and dashboards.</td></tr>
+    <tr><td class="term-zh">Analytics Publisher</td><td><strong>Analytics Publisher (BIP)</strong></td><td><span class="badge green">總帳</span></td><td class="zh-only">直接查交易表產像素級格式化營運報表。</td><td class="en-only">Queries transaction tables directly for pixel-perfect operational reports.</td></tr>
+  </tbody></table></div></div>
+</div>
 </main>
 <script>
 // ============ NAVIGATION ============
