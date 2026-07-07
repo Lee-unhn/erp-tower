@@ -19122,7 +19122,12 @@ document.body.appendChild(pop);
 };
 return box;
 }
-var GUIDE_PATH = 'sources/oracle_scm_lp/Oracle_SCM_Cloud_%E5%AD%B8%E7%BF%92%E6%8C%87%E5%8D%97.html';
+var GUIDE_PATHS = {
+_default: 'sources/oracle_scm_lp/Oracle_SCM_Cloud_%E5%AD%B8%E7%BF%92%E6%8C%87%E5%8D%97.html',
+fiap: 'sources/oracle_fi_ap/Oracle_Financials_Cloud_%E5%AD%B8%E7%BF%92%E6%8C%87%E5%8D%97.html',
+gl: 'sources/oracle_fi_ap/Oracle_Financials_Cloud_%E5%AD%B8%E7%BF%92%E6%8C%87%E5%8D%97.html'
+};
+var GUIDE_PATH = (typeof window !== 'undefined' && window.OT_MODULE && GUIDE_PATHS[window.OT_MODULE.id]) || GUIDE_PATHS._default;
 function guideLinkEl(q, lang, ctxLabel) {
 var def = (OT.clusters && OT.clusters.assign) ? OT.clusters.assign(q) : null;
 if (!def || !def.guide || !def.guide.anchor) return null;
