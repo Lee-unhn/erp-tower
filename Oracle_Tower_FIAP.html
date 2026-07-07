@@ -2113,6 +2113,28 @@ opacity: .22;
 .ot-monster--boss .ot-monster__art { width: 160px; height: 160px; }
 .ot-hero { flex-basis: 64px; }
 }
+@media (max-width: 560px) {
+.ot-battle { height: auto; min-height: 100%; overflow: visible; padding-bottom: 292px; }
+.ot-battle__stage { height: auto; }
+.ot-battle__minfo-hint { display: none; }   
+.ot-battle__player-strip {
+position: fixed; left: 6px; right: 6px; bottom: 224px;
+margin: 0; z-index: 9995;
+}
+.ot-battle__hand {
+position: fixed; left: 6px; right: 6px; bottom: 46px;
+margin: 0; z-index: 9996;
+background: linear-gradient(0deg, rgba(5,7,12,.97), rgba(8,11,18,.86));
+padding: 8px 8px 10px; border-radius: 14px;
+box-shadow: 0 -6px 22px rgba(0,0,0,.55);
+}
+.ot-battle__endturn { position: fixed; bottom: 8px; right: 12px; z-index: 9998; }
+.ot-battle__deckbar { position: fixed; bottom: 15px; left: 12px; z-index: 9998; }
+.ot-battle__disclaimer {
+position: fixed; bottom: 2px; left: 50%; right: auto;
+transform: translateX(-50%); z-index: 9997;
+}
+}
 .ot-route-tracker {
 width: min(660px, 96%); margin: 0 auto; padding: 8px 12px;
 background: rgba(10,14,22,.88); border: 1px solid rgba(199,70,52,.35);
